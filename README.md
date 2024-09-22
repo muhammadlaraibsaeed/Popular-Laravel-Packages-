@@ -83,4 +83,44 @@ This project implements a user roles and permissions system, enabling flexible a
 ```
 
 
+### General Code
+
+```
+    // Define permissions
+        $permissions = [
+            'manage users',
+            'manage vendors',
+            'product management',
+            'order management',
+            'view reports',
+            'settings management',
+            'browse products',
+            'place orders',
+        ];
+
+        // Create permissions
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
+
+        // Create roles
+        $roles = [
+            'admin' => $permissions, // Admin has all permissions
+            'vendor' => [
+                'product management',
+                'order management',
+            ],
+            'customer' => [
+                'browse products',
+                'place orders',
+            ],
+        ];
+
+        // Create roles and assign permissions
+        foreach ($roles as $roleName => $rolePermissions) {
+            $role = Role::create(['name' => $roleName]);
+            $role->givePermissionTo($rolePermissions);
+        }
+```
+
 
