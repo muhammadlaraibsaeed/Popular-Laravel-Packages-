@@ -5,8 +5,9 @@
 ```
 ## Configuration
 
-php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" --tag="config"
-
+```
+  php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" --tag="config"
+```
 - The main point is that executing the command will publish the config/permission.php file, which includes configuration options for the Spatie Laravel Permission package.
 
 ```
