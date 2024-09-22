@@ -39,7 +39,7 @@ This project implements a user roles and permissions system, enabling flexible a
 - **Table Name:** `model_has_permissions`
 - **Description:** Links roles to their associated permissions, enabling many-to-many relationships for access control.
 - **Fields:**
-  - `role_id`: The ID of the role.
+  - `model_id`: The ID of the role.
   - `permission_id`: The ID of the permission.
 
 ## Installation
