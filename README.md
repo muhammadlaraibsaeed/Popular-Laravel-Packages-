@@ -51,3 +51,36 @@ This project implements a user roles and permissions system, enabling flexible a
 
 - Assign permissions to roles as needed.
 - Implement access control checks in your application based on user roles and permissions.
+
+## Role & Permission models provided by the Spatie Laravel Permission package.
+
+```
+  use Spatie\Permission\Models\Role;
+  $role = Role::create(['name' => 'admin']);
+```
+
+```
+  use Spatie\Permission\Models\Permission;
+  $permission = Permission::create(['name' => 'edit articles']);
+```
+
+
+## Assigning Roles and Permissions to User Model
+
+```
+  $user = User::firstOrCreate(
+      ['email' => 'user@example.com'], // Attributes to check
+      ['name' => 'John Doe'] // Attributes to set if creating
+  );
+
+  $user->assignRole('admin');
+
+```
+
+```
+  $role = Role::create(['name' => 'admin']);
+  $role->givePermissionTo('edit articles');
+```
+
+
+
