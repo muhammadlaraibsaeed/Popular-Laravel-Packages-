@@ -148,3 +148,15 @@ This project implements a user roles and permissions system, enabling flexible a
 
         }
 ```
+
+## How it works
+
+```
+   php artisan db:seed --class=PermissionSeeder
+```
+
+```
+  php artisan db:seed --class=RoleSeeder
+```
+
+
