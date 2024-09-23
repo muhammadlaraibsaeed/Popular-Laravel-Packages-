@@ -55,18 +55,18 @@ This project implements a user roles and permissions system, enabling flexible a
 
 ## Role & Permission models provided by the Spatie Laravel Permission package.
 
-```
-  use Spatie\Permission\Models\Role;
-  $role = Role::create(['name' => 'admin']);
-```
 
-```
-  use Spatie\Permission\Models\Permission;
-  $permission = Permission::create(['name' => 'edit articles']);
-```
+  
 
+                $permission = Permission::create(['name' => 'edit articles']);
 
-## Assigning Roles and Permissions to User Model
+                $roleCreate = Role::create(['name' => $roleName]);
+                $roleCreate->givePermissionTo($permissions);
+
+                // Create user and Assign role
+                $userCreate = User::create($user);
+                $userCreate->assignRole($roleName);
+            
 
 ```
   $user = User::firstOrCreate(
@@ -77,6 +77,12 @@ This project implements a user roles and permissions system, enabling flexible a
   $user->assignRole('admin');
 
 ```
+
+
+
+## Assigning Roles and Permissions to User Model
+
+
 
 ```
   $role = Role::create(['name' => 'admin']);
@@ -156,4 +162,8 @@ This project implements a user roles and permissions system, enabling flexible a
   php artisan db:seed --class=RoleSeeder
 ```
 
-
+- Permission Creation: Establishing specific access rights (edit articles) using the Permission model.
+- Role Creation: Defining user roles ($roleName) using the Role model.
+- Assigning Permissions to Roles: Linking permissions to roles using givePermissionTo.
+- User Creation: Creating a new user using the User model.
+- Assigning Roles to Users: Granting roles to users using assignRole, which indirectly assigns associated permissions.
