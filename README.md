@@ -162,8 +162,38 @@ This project implements a user roles and permissions system, enabling flexible a
   php artisan db:seed --class=RoleSeeder
 ```
 
-- Permission Creation: Establishing specific access rights (edit articles) using the Permission model.
-- Role Creation: Defining user roles ($roleName) using the Role model.
-- Assigning Permissions to Roles: Linking permissions to roles using givePermissionTo.
-- User Creation: Creating a new user using the User model.
-- Assigning Roles to Users: Granting roles to users using assignRole, which indirectly assigns associated permissions.
+---
+
+
+
+# Snap Code File
+
+This code snippet demonstrates the essential steps for managing permissions, roles, and user assignments in a Laravel application.
+
+## Key Concepts
+
+1. **Permission Creation**: Establishing specific access rights (`edit articles`) using the `Permission` model.
+   
+2. **Role Creation**: Defining user roles (`$roleName`) using the `Role` model.
+   
+3. **Assigning Permissions to Roles**: Linking permissions to roles using `givePermissionTo`.
+   
+4. **User Creation**: Creating a new user using the `User` model.
+   
+5. **Assigning Roles to Users**: Granting roles to users using `assignRole`, which indirectly assigns associated permissions.
+
+## Snap Code File
+
+```php
+// Permission Creation
+$permission = Permission::create(['name' => 'edit articles']);
+
+// Role Creation
+$roleCreate = Role::create(['name' => $roleName]);
+
+// Assigning Permissions to Roles
+$roleCreate->givePermissionTo($permissions);
+
+// User Creation and Role Assignment
+$userCreate = User::create($user);
+$userCreate->assignRole($roleName);
