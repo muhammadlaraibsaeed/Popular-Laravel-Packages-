@@ -84,44 +84,67 @@ This project implements a user roles and permissions system, enabling flexible a
 ```
 
 
-### General Code
+### General Code & RoleSeeder PermissionSeeder
 
 ```
-    // Define permissions
-        $permissions = [
-            'manage users',
-            'manage vendors',
-            'product management',
-            'order management',
-            'view reports',
-            'settings management',
-            'browse products',
-            'place orders',
+  PermissionSeeder.php
+```
+
+```
+    $permissions = [
+            ['name' => 'customer_view', 'guard_name' => 'web'],
+            ['name' => 'customer_edit', 'guard_name' => 'web'],
+            ['name' => 'customer_delete', 'guard_name' => 'web'],
+            ['name' => 'customer_create', 'guard_name' => 'web'],
+            ['name' => 'vendor_view', 'guard_name' => 'web'],
+            ['name' => 'vendor_edit', 'guard_name' => 'web'],
+            ['name' => 'vendor_delete', 'guard_name' => 'web'],
+            ['name' => 'vendor_create', 'guard_name' => 'web'],
         ];
 
-        // Create permissions
-        foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
-        }
+        Permission::insert( $permissions);
+```
 
-        // Create roles
+```
+
+
+```
+  RoleSeeder.php
+```
+
+```
+    $allPermissionsNames = Permission::pluck('name');
         $roles = [
-            'admin' => $permissions, // Admin has all permissions
-            'vendor' => [
-                'product management',
-                'order management',
-            ],
-            'customer' => [
-                'browse products',
-                'place orders',
-            ],
+              "admin"=>[
+                    "permissions" => $allPermissionsNames,
+                    "users"=>  [
+                        'name' => 'admin',
+                        'email' => 'admin@gmail001.com',
+                        'password' => bcrypt('password123'), // Hash the password
+                    ]
+                ],
+                ...... , .....  
         ];
 
-        // Create roles and assign permissions
-        foreach ($roles as $roleName => $rolePermissions) {
-            $role = Role::create(['name' => $roleName]);
-            $role->givePermissionTo($rolePermissions);
+        // admin : role name
+        // permissions : Assign Permissions to role
+        // users : dummy data for role 
+
+
+        foreach ($roles as $role => $roleData) {
+           $permissions = $roleData['permissions'];
+           $user = $roleData['users'];
+           $roleName = $role;
+
+            DB::transaction(function () use ($roleName, $permissions, $user) {
+                // Create Role and Give permission
+                $roleCreate = Role::create(['name' => $roleName]);
+                $roleCreate->givePermissionTo($permissions);
+
+                // Create user and Assign role
+                $userCreate = User::create($user);
+                $userCreate->assignRole($roleName);
+            });
+
         }
 ```
-
-

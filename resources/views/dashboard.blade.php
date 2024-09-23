@@ -11,8 +11,24 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div>
+                <div></div>
             </div>
+
         </div>
+
+        @if(auth()->user()->can('customer_view'))
+                <button class="ml-4">Customer DashBoard</button> <br>
+        @endif
+
+        @if(auth()->user()->can('vendor_view'))
+                <button class="ml-4">vendor DashBoard</button> <br>
+        @endif
+
+        @if(auth()->user()->hasRole('admin'))
+            <button class="ml-4">Admin Dashboard</button> <br>
+        @endif
+
     </div>
+
 </x-app-layout>
  
